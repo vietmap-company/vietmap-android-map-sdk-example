@@ -63,7 +63,7 @@ public class MapViewExampleActivity extends AppCompatActivity implements OnMapRe
     @Override
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(new Style.Builder().fromUri(YOUT_VIETMAP_STYLE_HERE), style -> {
+        mapboxMap.setStyle(new Style.Builder().fromUri(YOUR_VIETMAP_STYLE_URL_HERE), style -> {
             enableLocationComponent(style);
             addPolylineLayer();
             addPolygonLayer();
