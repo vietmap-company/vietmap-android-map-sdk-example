@@ -22,7 +22,6 @@
 ```gradle
     implementation 'com.github.vietmap-company:maps-sdk-android:1.0.0'
     implementation 'com.github.vietmap-company:vietmap-services-turf-android:1.0.2'
-    implementation 'com.github.vietmap-company:vietmap-services-android:1.0.8'
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'com.github.vietmap-company:vietmap-services-geojson-android:1.0.0'
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.2.0'
