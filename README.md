@@ -2,7 +2,21 @@
 ## Mục lục
 [1. Cấu hình gradle và AndroidManifest](/README.md#i-thêm-các-dependencies-vào-buildgradle-module-app)
 
+[2. Tạo activity map view ](/README.md#ii-tạo-activity-map-view-để-sử-dụng-sdk)
 
+[3. Hiển thị vị trí hiện tại của thiết bị](/README.md#tạo-hàm-enablelocationcomponent-để-hiển-thị-vị-trí-hiện-tại-của-thiết-bị)
+
+[4. Thêm marker](/README.md#hàm-thêm-marker)
+
+[5. Thêm polyline](/README.md#hàm-thêm-polyline)
+
+[6. Thêm polygon](/README.md#hàm-thêm-polygon)
+
+[7. Hàm di bản đồ đến vị trí bất kì](/README.md#hàm-move-camera-tới-một-vị-trí-bất-kì)
+
+[8. Cấu hình các hàm cần thiết](/README.md#thêm-các-hàm-sau-để-sdk-hoạt-động-chính-xác)
+
+[9. Cấu hình xin quyền truy cập vị trí ](/README.md#tại-class-mainactivity-thêm-đoạn-code-sau-để-xin-quyền-vị-trí-trước-khi-vào-trang-bản-đồ)
 ###  **I**. Thêm các dependencies vào build.gradle module app
 
 ```gradle
@@ -54,7 +68,7 @@ Thêm các quyền sau vào **AndroidManifest.xml**
 ```
 
 
-### **II**. Tạo activity navigation để sử dụng sdk
+### **II**. Tạo activity map view để sử dụng sdk
 
 
 Tạo một **activity** mới với tên **MapViewExampleActivity**
@@ -144,7 +158,7 @@ Tại hàm **onCreate**, bắt đầu khởi tạo màn hình dẫn đường
     }
 ```
 
-Tạo hàm **_enableLocationComponent_** để hiển thị vị trí hiện tại của thiết bị
+#### Tạo hàm **_enableLocationComponent_** để hiển thị vị trí hiện tại của thiết bị
 ```java
     private void enableLocationComponent(Style style) {
         locationComponent = mapboxMap.getLocationComponent();
@@ -172,7 +186,7 @@ Tạo hàm **_enableLocationComponent_** để hiển thị vị trí hiện t�
     }
 ```
 
-Hàm thêm **_polyline_**
+#### Hàm thêm **_polyline_**
 ```java
     private void addPolylineLayer() {
         polylineCoordinates.add(Point.fromLngLat(106.659260, 10.759879));
@@ -196,7 +210,7 @@ Hàm thêm **_polyline_**
         }
     }
 ```
-Hàm thêm **_polygon_**
+#### Hàm thêm **_polygon_**
 ```java
 
     private void addPolygonLayer() {
@@ -220,7 +234,7 @@ Hàm thêm **_polygon_**
 
     }
 ```
-Hàm thêm **_marker_**
+#### Hàm thêm **_marker_**
 ```java
     // Hàm init marker được tạo để thêm trước icon cho toàn bộ marker mang tên custom_marker
     // Các marker cùng tên khi bản đồ thu nhỏ lại sẽ tự động gom nhóm vào với nhau
@@ -248,14 +262,14 @@ Hàm thêm marker được gọi khi chạm giữ trên bản đồ
     }
 ```
 
-Hàm move camera tới một vị trí bất kì
+#### Hàm move camera tới một vị trí bất kì
 ```java
     private void moveMapToLocation(double latitude, double longitude, Integer zoom) {
         mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
     }
 ```
 
-Thêm các hàm sau để sdk hoạt động chính xác
+#### Thêm các hàm sau để sdk hoạt động chính xác
 ```java
     @Override
     public void onStart() {
@@ -305,7 +319,7 @@ Thêm các hàm sau để sdk hoạt động chính xác
     }
 ```
 
-Tại class **_MainActivity_**, thêm đoạn code sau để xin quyền vị trí trước khi vào trang bản đồ
+#### Tại class **_MainActivity_**, thêm đoạn code sau để xin quyền vị trí trước khi vào trang bản đồ
 ```java
 public class MainActivity extends AppCompatActivity implements PermissionsListener{
 
