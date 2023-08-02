@@ -13,8 +13,8 @@ import java.util.List;
 import android.util.Log;
 import android.view.View;
 
-import com.mapbox.mapboxsdk.location.permissions.PermissionsListener;
-import com.mapbox.mapboxsdk.location.permissions.PermissionsManager;
+import vn.vietmap.vietmapsdk.location.permissions.PermissionsListener;
+import vn.vietmap.vietmapsdk.location.permissions.PermissionsManager;
 public class MainActivity extends AppCompatActivity implements PermissionsListener{
 
     private PermissionsManager permissionsManager;

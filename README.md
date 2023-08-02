@@ -20,7 +20,7 @@
 ###  **I**. Thêm các dependencies vào build.gradle module app
 
 ```gradle
-    implementation 'com.github.vietmap-company:maps-sdk-android:1.0.0'
+    implementation 'com.github.vietmap-company:maps-sdk-android:2.0.0'
     implementation 'com.github.vietmap-company:vietmap-services-turf-android:1.0.2'
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'com.github.vietmap-company:vietmap-services-geojson-android:1.0.0'
@@ -82,12 +82,11 @@ Tại file **xml** của **activity**, thêm đoạn code như sau
     android:layout_height="match_parent"
     tools:context=".MapViewExampleActivity">
 
-    <com.mapbox.mapboxsdk.maps.MapView
+    <vn.vietmap.vietmapsdk.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:maplibre_cameraZoom="1"
-
+        app:vietmap_cameraZoom="1"
         android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,20 +99,20 @@ Activity cần implements một số class Listener dưới đây để hứng e
 
 
 ```java
-public class MapViewExampleActivity extends AppCompatActivity 
-implements OnMapReadyCallback, MapboxMap.OnMapClickListener, MapboxMap.OnMapLongClickListener {
+public class MapViewExampleActivity extends AppCompatActivity implements OnMapReadyCallback, VietMapGL.OnMapClickListener, VietMapGL.OnMapLongClickListener {
+
 
 }
 ```
 
 >   - OnMapReadyCallback: Lắng nghe khi map init hoàn thành và gán style cho map
->   - MapboxMap.OnMapClickListener,MapboxMap.OnMapLongClickListener, MapboxMap.OnMoveListener: Lắng nghe các sự kiện của map
+>   - VietMapGL.OnMapClickListener, VietMapGL.OnMapLongClickListener, VietMapGL.OnMoveListener: Lắng nghe các sự kiện của map
 
 Khai báo các biến cần thiết
 
 ```java
     private MapView mapView;
-    private MapboxMap mapboxMap;
+    private VietMapGL vietmapGL;
     List<Point> polylineCoordinates = new ArrayList<>();
     List<Point> polygonCoordinates = new ArrayList<>();
     private LocationComponent locationComponent;
@@ -122,21 +121,22 @@ Tại hàm **onCreate**, bắt đầu khởi tạo màn hình dẫn đường
 ```java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Mapbox.getInstance(this);
+        Vietmap.getInstance(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_view_example);
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
         Toast.makeText(MapViewExampleActivity.this, "Long click on map to place a marker", Toast.LENGTH_LONG).show();
+
     }
 ```
 ### Tại hàm **onMapReady**:
 ```java
     @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(new Style.Builder().fromUri(YOUR_MAP_STYLE_GOES_HERE), style -> {
+    public void onMapReady(@NonNull VietMapGL vietmapGL) {
+        this.vietmapGL = vietmapGL;
+        vietmapGL.setStyle(new Style.Builder().fromUri(YOUR_MAP_STYLE_GOES_HERE), style -> {
             enableLocationComponent(style);
             addPolygonLayer();
             addPolylineLayer();
@@ -144,23 +144,23 @@ Tại hàm **onCreate**, bắt đầu khởi tạo màn hình dẫn đường
 //            moveMapToLocation(10.753892, 106.672606, 14);
 
         });
-        this.mapboxMap.setOnPolylineClickListener(polyline1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polyline with id " + polyline1.getId(), Toast.LENGTH_LONG).show());
+        this.vietmapGL.setOnPolylineClickListener(polyline1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polyline with id " + polyline1.getId(), Toast.LENGTH_LONG).show());
 
-        this.mapboxMap.setOnPolygonClickListener(polygon1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polygon with id " + polygon1.getId(), Toast.LENGTH_LONG).show());
+        this.vietmapGL.setOnPolygonClickListener(polygon1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polygon with id " + polygon1.getId(), Toast.LENGTH_LONG).show());
 
-        this.mapboxMap.setOnMarkerClickListener(marker -> {
+        this.vietmapGL.setOnMarkerClickListener(marker -> {
             Toast.makeText(MapViewExampleActivity.this, "You clicked on marker with location " + marker.getPosition().toString(), Toast.LENGTH_LONG).show();
             return false;
         });
-        this.mapboxMap.addOnMapClickListener(this);
-        this.mapboxMap.addOnMapLongClickListener(this);
+        this.vietmapGL.addOnMapClickListener(this);
+        this.vietmapGL.addOnMapLongClickListener(this);
     }
 ```
 
 #### Tạo hàm **_enableLocationComponent_** để hiển thị vị trí hiện tại của thiết bị
 ```java
     private void enableLocationComponent(Style style) {
-        locationComponent = mapboxMap.getLocationComponent();
+        locationComponent = vietmapGL.getLocationComponent();
         if (locationComponent != null) {
             locationComponent.activateLocationComponent(LocationComponentActivationOptions.builder(this, style).build());
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -202,7 +202,7 @@ Tại hàm **onCreate**, bắt đầu khởi tạo màn hình dẫn đường
                 PropertyFactory.lineOpacity(0.7f)
         );
 
-        Style style = mapboxMap.getStyle();
+        Style style = vietmapGL.getStyle();
         if (style != null) {
             style.addSource(new GeoJsonSource("polyline-source-id", lineString));
             style.addLayer(lineLayer);
@@ -225,7 +225,7 @@ Tại hàm **onCreate**, bắt đầu khởi tạo màn hình dẫn đường
                 PropertyFactory.fillColor(Color.BLUE),
                 PropertyFactory.fillOpacity(0.8f)
         );
-        Style style = mapboxMap.getStyle();
+        Style style = vietmapGL.getStyle();
         if (style != null) {
             style.addSource(new GeoJsonSource("polygon-source-id", polygon));
             style.addLayer(fillLayer);
@@ -239,11 +239,11 @@ Tại hàm **onCreate**, bắt đầu khởi tạo màn hình dẫn đường
     // Các marker cùng tên khi bản đồ thu nhỏ lại sẽ tự động gom nhóm vào với nhau
     private void initMarker() {
         Bitmap iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.custom_marker);
-        mapboxMap.getStyle().addImage("custom_marker", iconBitmap);
+        vietmapGL.getStyle().addImage("custom_marker", iconBitmap);
     }
     // Hàm addMarker dùng để thêm các marker vào vị trí tuỳ chọn
     private void addMarker(LatLng position) {
-        SymbolManager symbolManager = new SymbolManager(mapView, mapboxMap, mapboxMap.getStyle());
+        SymbolManager symbolManager = new SymbolManager(mapView, vietmapGL, vietmapGL.getStyle());
         SymbolOptions symbolOptions = new SymbolOptions()
                 .withLatLng(position)
                 .withIconImage("custom_marker")
@@ -264,7 +264,7 @@ Hàm thêm marker được gọi khi chạm giữ trên bản đồ
 #### Hàm move camera tới một vị trí bất kì
 ```java
     private void moveMapToLocation(double latitude, double longitude, Integer zoom) {
-        mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
+        vietmapGL.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
     }
 ```
 

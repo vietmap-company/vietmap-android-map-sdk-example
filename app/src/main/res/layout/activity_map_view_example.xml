@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MapViewExampleActivity">
 
-    <com.mapbox.mapboxsdk.maps.MapView
+    <vn.vietmap.vietmapsdk.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:maplibre_cameraZoom="1"
+        app:vietmap_cameraZoom="1"
 
         android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent"

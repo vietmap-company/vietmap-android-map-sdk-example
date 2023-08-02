@@ -16,44 +16,44 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.annotations.Marker;
-import com.mapbox.mapboxsdk.annotations.PolygonOptions;
-import com.mapbox.mapboxsdk.annotations.PolylineOptions;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
-import com.mapbox.mapboxsdk.location.LocationComponentOptions;
-import com.mapbox.mapboxsdk.location.modes.CameraMode;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
-import com.mapbox.mapboxsdk.style.layers.FillLayer;
-import com.mapbox.mapboxsdk.style.layers.LineLayer;
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import vn.vietmap.vietmapsdk.Vietmap;
+import vn.vietmap.vietmapsdk.annotations.Marker;
+import vn.vietmap.vietmapsdk.annotations.PolygonOptions;
+import vn.vietmap.vietmapsdk.annotations.PolylineOptions;
+import vn.vietmap.vietmapsdk.camera.CameraUpdateFactory;
+import vn.vietmap.vietmapsdk.geometry.LatLng;
+import vn.vietmap.vietmapsdk.location.LocationComponent;
+import vn.vietmap.vietmapsdk.location.LocationComponentActivationOptions;
+import vn.vietmap.vietmapsdk.location.LocationComponentOptions;
+import vn.vietmap.vietmapsdk.location.modes.CameraMode;
+import vn.vietmap.vietmapsdk.location.modes.RenderMode;
+import vn.vietmap.vietmapsdk.maps.MapView;
+import vn.vietmap.vietmapsdk.maps.VietMapGL;
+import vn.vietmap.vietmapsdk.maps.OnMapReadyCallback;
+import vn.vietmap.vietmapsdk.maps.Style;
+import vn.vietmap.vietmapsdk.plugins.annotation.SymbolManager;
+import vn.vietmap.vietmapsdk.plugins.annotation.SymbolOptions;
+import vn.vietmap.vietmapsdk.style.layers.FillLayer;
+import vn.vietmap.vietmapsdk.style.layers.LineLayer;
+import vn.vietmap.vietmapsdk.style.layers.PropertyFactory;
+import vn.vietmap.vietmapsdk.style.sources.GeoJsonSource;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
-public class MapViewExampleActivity extends AppCompatActivity implements OnMapReadyCallback, MapboxMap.OnMapClickListener, MapboxMap.OnMapLongClickListener {
+public class MapViewExampleActivity extends AppCompatActivity implements OnMapReadyCallback, VietMapGL.OnMapClickListener, VietMapGL.OnMapLongClickListener {
 
     private MapView mapView;
-    private MapboxMap mapboxMap;
+    private VietMapGL vietmapGL;
     List<Point> polylineCoordinates = new ArrayList<>();
     List<Point> polygonCoordinates = new ArrayList<>();
     private LocationComponent locationComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Mapbox.getInstance(this);
+        Vietmap.getInstance(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_view_example);
         mapView = findViewById(R.id.mapView);
@@ -64,9 +64,9 @@ public class MapViewExampleActivity extends AppCompatActivity implements OnMapRe
     }
 
     @Override
-    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-        this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(new Style.Builder().fromUri(YOUR_MAP_STYLE_GOES_HERE), style -> {
+        public void onMapReady(@NonNull VietMapGL vietmapGL) {
+        this.vietmapGL = vietmapGL;
+        vietmapGL.setStyle(new Style.Builder().fromUri("https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326"), style -> {
             enableLocationComponent(style);
             addPolygonLayer();
             addPolylineLayer();
@@ -74,20 +74,20 @@ public class MapViewExampleActivity extends AppCompatActivity implements OnMapRe
 //            moveMapToLocation(10.753892, 106.672606, 14);
 
         });
-        this.mapboxMap.setOnPolylineClickListener(polyline1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polyline with id " + polyline1.getId(), Toast.LENGTH_LONG).show());
+        this.vietmapGL.setOnPolylineClickListener(polyline1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polyline with id " + polyline1.getId(), Toast.LENGTH_LONG).show());
 
-        this.mapboxMap.setOnPolygonClickListener(polygon1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polygon with id " + polygon1.getId(), Toast.LENGTH_LONG).show());
+        this.vietmapGL.setOnPolygonClickListener(polygon1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polygon with id " + polygon1.getId(), Toast.LENGTH_LONG).show());
 
-        this.mapboxMap.setOnMarkerClickListener(marker -> {
+        this.vietmapGL.setOnMarkerClickListener(marker -> {
             Toast.makeText(MapViewExampleActivity.this, "You clicked on marker with location " + marker.getPosition().toString(), Toast.LENGTH_LONG).show();
             return false;
         });
-        this.mapboxMap.addOnMapClickListener(this);
-        this.mapboxMap.addOnMapLongClickListener(this);
+        this.vietmapGL.addOnMapClickListener(this);
+        this.vietmapGL.addOnMapLongClickListener(this);
     }
 
     private void enableLocationComponent(Style style) {
-        locationComponent = mapboxMap.getLocationComponent();
+        locationComponent = vietmapGL.getLocationComponent();
         if (locationComponent != null) {
             locationComponent.activateLocationComponent(LocationComponentActivationOptions.builder(this, style).build());
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -126,7 +126,7 @@ public class MapViewExampleActivity extends AppCompatActivity implements OnMapRe
                 PropertyFactory.lineOpacity(0.7f)
         );
 
-        Style style = mapboxMap.getStyle();
+        Style style = vietmapGL.getStyle();
         if (style != null) {
             style.addSource(new GeoJsonSource("polyline-source-id", lineString));
             style.addLayer(lineLayer);
@@ -147,21 +147,21 @@ public class MapViewExampleActivity extends AppCompatActivity implements OnMapRe
                 PropertyFactory.fillColor(Color.BLUE),
                 PropertyFactory.fillOpacity(0.8f)
         );
-        Style style = mapboxMap.getStyle();
+        Style style = vietmapGL.getStyle();
         if (style != null) {
             style.addSource(new GeoJsonSource("polygon-source-id", polygon));
             style.addLayer(fillLayer);
         }
-//        mapboxMap.addPolygon(new PolygonOptions(new Polygon(polygonCoordinates)));
+//        vietmapGL.addPolygon(new PolygonOptions(new Polygon(polygonCoordinates)));
     }
 
     private void initMarker() {
         Bitmap iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.custom_marker);
-        mapboxMap.getStyle().addImage("custom_marker", iconBitmap);
+        vietmapGL.getStyle().addImage("custom_marker", iconBitmap);
     }
 
     private void addMarker(LatLng position) {
-        SymbolManager symbolManager = new SymbolManager(mapView, mapboxMap, mapboxMap.getStyle());
+        SymbolManager symbolManager = new SymbolManager(mapView, vietmapGL, vietmapGL.getStyle());
         SymbolOptions symbolOptions = new SymbolOptions()
                 .withLatLng(position)
                 .withIconImage("custom_marker")
@@ -170,13 +170,13 @@ public class MapViewExampleActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void moveMapToLocation(double latitude, double longitude, Integer zoom) {
-        mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
+        vietmapGL.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
     }
 
     @Override
     public boolean onMapClick(@NonNull LatLng latLng) {
-        PointF screenPoint = mapboxMap.getProjection().toScreenLocation(latLng);
-        List<Feature> features = mapboxMap.queryRenderedFeatures(screenPoint);
+        PointF screenPoint = vietmapGL.getProjection().toScreenLocation(latLng);
+        List<Feature> features = vietmapGL.queryRenderedFeatures(screenPoint);
 
         for (Feature feature : features) {
 
