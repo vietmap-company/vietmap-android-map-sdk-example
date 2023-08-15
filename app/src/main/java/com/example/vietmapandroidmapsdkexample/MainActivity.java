@@ -7,12 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.util.List;
-
-import android.util.Log;
-import android.view.View;
-
 import vn.vietmap.vietmapsdk.location.permissions.PermissionsListener;
 import vn.vietmap.vietmapsdk.location.permissions.PermissionsManager;
 public class MainActivity extends AppCompatActivity implements PermissionsListener{

@@ -1,23 +1,23 @@
-# **VietMap Navigation Android SDK documentation**
-## Table of contents
-[1. Gradle and AndroidManifest configure](/README.md#i-add-dependencies-below-to-buildgradle-module-app)
+# **Tài liệu hướng dẫn cài đặt VietMap Navigation Android SDK**
+## Mục lục
+[1. Cấu hình gradle và AndroidManifest](/README.md#i-thêm-các-dependencies-vào-buildgradle-module-app)
 
-[2. Create a mapview activity](/README.md#ii-create-an-activity-to-show-map)
+[2. Tạo activity map view ](/README.md#ii-tạo-activity-map-view-để-sử-dụng-sdk)
 
-[3. Show the current GPS location of the device](/README.md#create-enablelocationcomponent-function-to-show-the-user-current-location)
+[3. Hiển thị vị trí hiện tại của thiết bị](/README.md#tạo-hàm-enablelocationcomponent-để-hiển-thị-vị-trí-hiện-tại-của-thiết-bị)
 
-[4. Add a marker](/README.md#add-a-marker)
+[4. Thêm marker](/README.md#hàm-thêm-marker)
 
-[5. Add a line/polyline](/README.md#add-a-polyline)
+[5. Thêm polyline](/README.md#hàm-thêm-polyline)
 
-[6. Add a shape/polygon](/README.md#add-a-polygon)
+[6. Thêm polygon](/README.md#hàm-thêm-polygon)
 
-[7. Move map camera to a specific location](/README.md#move-map-camera-to-a-specific-location)
+[7. Hàm di bản đồ đến vị trí bất kì](/README.md#hàm-move-camera-tới-một-vị-trí-bất-kì)
 
-[8. Add some necessary function](/README.md#add-some-necessary-function)
+[8. Cấu hình các hàm cần thiết](/README.md#thêm-các-hàm-sau-để-sdk-hoạt-động-chính-xác)
 
-[9. Request location permission](/README.md#add-below-code-to-mainactivity-class-to-request-location-permission)
-###  **I**. Add dependencies below to build.gradle module app
+[9. Cấu hình xin quyền truy cập vị trí ](/README.md#tại-class-mainactivity-thêm-đoạn-code-sau-để-xin-quyền-vị-trí-trước-khi-vào-trang-bản-đồ)
+###  **I**. Thêm các dependencies vào build.gradle module app
 
 ```gradle
     implementation 'com.github.vietmap-company:maps-sdk-android:2.0.0'
@@ -28,7 +28,7 @@
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.google.code.gson:gson:2.10.1'
 ```
-Configure the **jitpack repository** in the **setting.gradle** file
+Cấu hình **jitpack repository** tại file **setting.gradle**
 ```gradle
 
 dependencyResolutionManagement {
@@ -36,13 +36,13 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // Add two lines below to the repositories block (In setting.gradle file)
+        // Thêm 2 dòng dưới đây vào repositories (tại file setting.gradle)
         maven { url 'https://plugins.gradle.org/m2' }
         maven { url 'https://jitpack.io' }
     }
 }
 ```
-With older projects, add to the **build.gradle file at module project**
+Đối với các project cũ, thêm vào file **build.gradle tại module project**
 ```gradle
 allprojects {
     repositories {
@@ -51,14 +51,14 @@ allprojects {
     }
 }
 ```
-Upgrade the **compileSdk** and **targetSdk** to version **_33_**
-```gradle
+Chuyển **compileSdk** và **targetSdk** vể version **_33_**
+```
 compileSdk 33
 ```
-```gradle
+```
 targetSdk 33
 ```
-Add the below permission request to the  **AndroidManifest.xml** file
+Thêm các quyền sau vào **AndroidManifest.xml**
 ```xml
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -67,12 +67,12 @@ Add the below permission request to the  **AndroidManifest.xml** file
 ```
 
 
-### **II**. Create an activity to show map
+### **II**. Tạo activity map view để sử dụng sdk
 
 
-Create an new **activity** with name **MapViewExampleActivity**
+Tạo một **activity** mới với tên **MapViewExampleActivity**
 
-In the **xml** file of created **activity**, add below code
+Tại file **xml** của **activity**, thêm đoạn code như sau
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -95,22 +95,20 @@ In the **xml** file of created **activity**, add below code
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
-Activity needs to implement some of the following Listener classes to catch user events and process them.
+Activity cần implements một số class Listener dưới đây để hứng event và xử lý trong quá trình sdk đang dẫn đường
 
 
 ```java
-public class MapViewExampleActivity extends AppCompatActivity 
-implements OnMapReadyCallback, VietMapGL.OnMapClickListener, 
-VietMapGL.OnMapLongClickListener {
+public class MapViewExampleActivity extends AppCompatActivity implements OnMapReadyCallback, VietMapGL.OnMapClickListener, VietMapGL.OnMapLongClickListener {
 
 
 }
 ```
 
->   - OnMapReadyCallback: Listen when map initial successfully and return a map style
->   - VietMapGL.OnMapClickListener, VietMapGL.OnMapLongClickListener, VietMapGL.OnMoveListener: Listen map events
+>   - OnMapReadyCallback: Lắng nghe khi map init hoàn thành và gán style cho map
+>   - VietMapGL.OnMapClickListener, VietMapGL.OnMapLongClickListener, VietMapGL.OnMoveListener: Lắng nghe các sự kiện của map
 
-Define necessary variables
+Khai báo các biến cần thiết
 
 ```java
     private MapView mapView;
@@ -119,7 +117,7 @@ Define necessary variables
     List<Point> polygonCoordinates = new ArrayList<>();
     private LocationComponent locationComponent;
 ```
-In **onCreate** function, add some necessary code to init the map view
+Tại hàm **onCreate**, bắt đầu khởi tạo màn hình dẫn đường
 ```java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,10 +128,10 @@ In **onCreate** function, add some necessary code to init the map view
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
         Toast.makeText(MapViewExampleActivity.this, "Long click on map to place a marker", Toast.LENGTH_LONG).show();
+
     }
 ```
-### In **onMapReady** function:
-Add listener function and handle them when SDK receives user actions callback
+### Tại hàm **onMapReady**:
 ```java
     @Override
     public void onMapReady(@NonNull VietMapGL vietmapGL) {
@@ -144,10 +142,11 @@ Add listener function and handle them when SDK receives user actions callback
             addPolylineLayer();
             initMarker();
 //            moveMapToLocation(10.753892, 106.672606, 14);
-        });
-        this.vietmapGL.setOnPolylineClickListener(polyline -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polyline with id " + polyline.getId(), Toast.LENGTH_LONG).show());
 
-        this.vietmapGL.setOnPolygonClickListener(polygon -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polygon with id " + polygon.getId(), Toast.LENGTH_LONG).show());
+        });
+        this.vietmapGL.setOnPolylineClickListener(polyline1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polyline with id " + polyline1.getId(), Toast.LENGTH_LONG).show());
+
+        this.vietmapGL.setOnPolygonClickListener(polygon1 -> Toast.makeText(MapViewExampleActivity.this, "You clicked on polygon with id " + polygon1.getId(), Toast.LENGTH_LONG).show());
 
         this.vietmapGL.setOnMarkerClickListener(marker -> {
             Toast.makeText(MapViewExampleActivity.this, "You clicked on marker with location " + marker.getPosition().toString(), Toast.LENGTH_LONG).show();
@@ -158,7 +157,7 @@ Add listener function and handle them when SDK receives user actions callback
     }
 ```
 
-#### Create **_enableLocationComponent_** function to show the user current location.
+#### Tạo hàm **_enableLocationComponent_** để hiển thị vị trí hiện tại của thiết bị
 ```java
     private void enableLocationComponent(Style style) {
         locationComponent = vietmapGL.getLocationComponent();
@@ -186,7 +185,7 @@ Add listener function and handle them when SDK receives user actions callback
     }
 ```
 
-#### Add a **_polyline_**
+#### Hàm thêm **_polyline_**
 ```java
     private void addPolylineLayer() {
         polylineCoordinates.add(Point.fromLngLat(106.659260, 10.759879));
@@ -210,7 +209,7 @@ Add listener function and handle them when SDK receives user actions callback
         }
     }
 ```
-#### Add a **_polygon_**
+#### Hàm thêm **_polygon_**
 ```java
 
     private void addPolygonLayer() {
@@ -234,12 +233,15 @@ Add listener function and handle them when SDK receives user actions callback
 
     }
 ```
-#### Add a **_marker_**
+#### Hàm thêm **_marker_**
 ```java
+    // Hàm init marker được tạo để thêm trước icon cho toàn bộ marker mang tên custom_marker
+    // Các marker cùng tên khi bản đồ thu nhỏ lại sẽ tự động gom nhóm vào với nhau
     private void initMarker() {
         Bitmap iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.custom_marker);
         vietmapGL.getStyle().addImage("custom_marker", iconBitmap);
     }
+    // Hàm addMarker dùng để thêm các marker vào vị trí tuỳ chọn
     private void addMarker(LatLng position) {
         SymbolManager symbolManager = new SymbolManager(mapView, vietmapGL, vietmapGL.getStyle());
         SymbolOptions symbolOptions = new SymbolOptions()
@@ -250,7 +252,7 @@ Add listener function and handle them when SDK receives user actions callback
     }
 ```
 
-On long click callback function
+Hàm thêm marker được gọi khi chạm giữ trên bản đồ
 ```java
 @Override
     public boolean onMapLongClick(@NonNull LatLng latLng) {
@@ -259,14 +261,14 @@ On long click callback function
     }
 ```
 
-#### Move map camera to a specific location
+#### Hàm move camera tới một vị trí bất kì
 ```java
     private void moveMapToLocation(double latitude, double longitude, Integer zoom) {
         vietmapGL.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
     }
 ```
 
-#### Add some necessary function
+#### Thêm các hàm sau để sdk hoạt động chính xác
 ```java
     @Override
     public void onStart() {
@@ -316,7 +318,7 @@ On long click callback function
     }
 ```
 
-#### Add below code to **_MainActivity_** class to request location permission
+#### Tại class **_MainActivity_**, thêm đoạn code sau để xin quyền vị trí trước khi vào trang bản đồ
 ```java
 public class MainActivity extends AppCompatActivity implements PermissionsListener{
 
@@ -359,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
 }
 ```
 
-Add navigate page button for the MainActivity xml file
+Thêm nút chuyển trang cho file xml của MainActivity
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
