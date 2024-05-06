@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:vietmap="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="NestedWeights">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <!-- DC -->
+        <fragment
+            android:id="@+id/map1"
+            class="vn.vietmap.vietmapsdk.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            vietmap:vietmap_cameraTargetLat="16.975309"
+            vietmap:vietmap_cameraTargetLng="106.927671"
+            vietmap:vietmap_cameraZoom="3" />
+
+        <!-- SF -->
+        <fragment
+            android:id="@+id/map2"
+            class="vn.vietmap.vietmapsdk.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            vietmap:vietmap_cameraTargetLat="16.975309"
+            vietmap:vietmap_cameraTargetLng="106.927671"
+            vietmap:vietmap_cameraZoom="3"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <!-- Bangalore -->
+        <fragment
+            android:id="@+id/map3"
+            class="vn.vietmap.vietmapsdk.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            vietmap:vietmap_cameraTargetLat="16.975309"
+            vietmap:vietmap_cameraTargetLng="106.927671"
+            vietmap:vietmap_cameraZoom="3"/>
+
+        <!-- Ayacucho -->
+        <fragment
+            android:id="@+id/map4"
+            class="vn.vietmap.vietmapsdk.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            vietmap:vietmap_cameraTargetLat="16.975309"
+            vietmap:vietmap_cameraTargetLng="106.927671"
+            vietmap:vietmap_cameraZoom="3" />
+    </LinearLayout>
+</LinearLayout>

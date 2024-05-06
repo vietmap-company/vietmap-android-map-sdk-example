@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.ManualLocationUpdatesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AnimatedSymbolLayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.GeoJsonClusteringActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.SymbolLayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.GradientPolylineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.DraggableMarkerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ShowUserLocationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.CustomInfoWindowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.CustomDynamicInfoWindowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.BuildingFillExtrusionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".ui.RestrictCameraToBoundsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.PrintMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.HeatMapLayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MapFragmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MultiMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.CountFeatureInBoxActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AnimatorAnimationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".ui.CameraAnimationTypes"
+            android:exported="false" />
+        <activity
+            android:name=".ui.PolylineActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".ui.PolygonActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".ui.DynamicMarkerChangeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.BulkMarkerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".ui.VietMapGLSurfaceRecyclerView"
+            android:exported="false" />
+        <activity
+            android:name=".ui.VietMapViewPager"
+            android:exported="false" />
+        <activity
+            android:name=".ui.VietmapScreen"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

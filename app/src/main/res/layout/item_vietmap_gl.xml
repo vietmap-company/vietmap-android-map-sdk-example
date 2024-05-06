@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vn.vietmap.vietmapsdk.maps.MapView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/mapView"
+    android:layout_width="match_parent"
+    android:layout_height="256dp"
+    app:vietmap_cameraTargetLat="45.38301927899065"
+    app:vietmap_cameraTargetLng="8.63525390625"
+    app:vietmap_cameraZoom="7"/>

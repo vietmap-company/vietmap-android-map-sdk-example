@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.PolylineActivity">
+
+    <vn.vietmap.vietmapsdk.maps.MapView
+        android:id="@+id/mapViewPolyline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:vietmap_cameraTargetLat="16.414981"
+        app:vietmap_cameraTargetLng="107.398271"
+        app:vietmap_cameraZoom="4" >
+
+    </vn.vietmap.vietmapsdk.maps.MapView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/vietmap_logo_icon"
+        app:backgroundTint="@android:color/white" />
+
+</RelativeLayout>
