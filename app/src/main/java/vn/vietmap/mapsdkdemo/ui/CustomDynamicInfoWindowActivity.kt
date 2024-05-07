@@ -131,9 +131,7 @@ class CustomDynamicInfoWindowActivity : AppCompatActivity(), OnMapReadyCallback,
 
     override fun onDestroy() {
         super.onDestroy()
-        if (vietMapGL != null) {
-            vietMapGL.removeOnMapClickListener(this)
-        }
+        vietMapGL.removeOnMapClickListener(this)
         mapView.onDestroy()
     }
 

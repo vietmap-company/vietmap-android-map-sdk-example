@@ -94,8 +94,6 @@ class VietmapScreen : AppCompatActivity(), VietMapGL.OnMapClickListener {
                     .fromUri(VietMapTiles.instance.lightVector())
             ) {
                 style = it
-                println(it.uri)
-                println(it.url)
                 initLocationEngine()
                 enableLocationComponent(it)
                 it.addLayerBelow(RasterLayer("raster", "raster_id"), "vmadmin_province")
@@ -112,12 +110,12 @@ class VietmapScreen : AppCompatActivity(), VietMapGL.OnMapClickListener {
             addPolyline()
             addLineLayer("LayerTest", "1234")
             vietMapGL.addOnMapClickListener(this)
-val removeLine = findViewById<Button>(R.id.removeLine)
+            val removeLine = findViewById<Button>(R.id.removeLine)
             val addLineButton = findViewById<Button>(R.id.button)
             val changeTileButton = findViewById<Button>(R.id.changeTile)
-            removeLine.setOnClickListener{
+            removeLine.setOnClickListener {
             }
-            addLineButton.setOnClickListener{
+            addLineButton.setOnClickListener {
                 addPolyline()
             }
             changeTileButton.setOnClickListener {

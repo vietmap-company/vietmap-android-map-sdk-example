@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.DemoActivity">
+
+    <vn.vietmap.vietmapsdk.maps.MapView
+        android:id="@+id/demoMapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:vietmap_cameraTargetLat="16.3"
+        app:vietmap_cameraTargetLng="106"
+        app:vietmap_cameraZoom="5">
+
+    </vn.vietmap.vietmapsdk.maps.MapView>
+
+    <Button
+        android:id="@+id/zoomIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zoom in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </Button>
+
+    <Button
+        android:id="@+id/zoomOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="Zoom out"
+        app:layout_constraintBottom_toTopOf="@+id/zoomIn"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </Button>
+    <Button
+        android:id="@+id/resizeMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="Resize map"
+        app:layout_constraintBottom_toTopOf="@+id/zoomOut"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </Button>
+</androidx.constraintlayout.widget.ConstraintLayout>
