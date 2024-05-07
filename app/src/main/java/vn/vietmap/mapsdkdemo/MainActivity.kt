@@ -20,6 +20,7 @@ import vn.vietmap.mapsdkdemo.ui.CameraAnimationTypes
 import vn.vietmap.mapsdkdemo.ui.CountFeatureInBoxActivity
 import vn.vietmap.mapsdkdemo.ui.CustomDynamicInfoWindowActivity
 import vn.vietmap.mapsdkdemo.ui.CustomInfoWindowActivity
+import vn.vietmap.mapsdkdemo.ui.DemoActivity
 import vn.vietmap.mapsdkdemo.ui.DraggableMarkerActivity
 import vn.vietmap.mapsdkdemo.ui.DynamicMarkerChangeActivity
 import vn.vietmap.mapsdkdemo.ui.GeoJsonClusteringActivity
@@ -92,13 +93,11 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme {
 
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .verticalScroll(rememberScrollState()),
-
-                    horizontalAlignment =  Alignment.CenterHorizontally,
-
-                ) {
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .verticalScroll(rememberScrollState()),
+                        horizontalAlignment =  Alignment.CenterHorizontally,
+                    ) {
                     Text(text = "Show map")
                     Button(onClick = {
                         Intent(applicationContext, VietmapScreen::class.java).also {
@@ -337,6 +336,17 @@ class MainActivity : ComponentActivity() {
                         Text(text = "ManualLocationUpdatesActivity")
                     }
 
+                    Text(text = "Demo Screen")
+
+                    Button(
+                        onClick = {
+                            Intent(applicationContext, DemoActivity::class.java).also {
+                                startActivity(it)
+                            }
+                        }
+                    ){
+                        Text(text = "Demo Activity")
+                    }
                 }
             }
         }
