@@ -47,7 +47,7 @@ class DynamicMarkerChangeActivity : AppCompatActivity() {
         val first = mapView.tag as Boolean
         mapView.tag = !first
         marker!!.position = if(first) LAT_LNG_HANOI else LAT_LNG_HOCHIMINH
-        marker!!.icon = IconUtils().drawableToIcon(this, R.drawable.ic_stars, if(first){ResourcesCompat.getColor(resources, vn.vietmap.services.android.navigation.R.color.vietmap_blue, theme)}else
+        marker!!.icon = IconUtils().drawableToIcon(this, R.drawable.ic_stars, if(first){ResourcesCompat.getColor(resources, R.color.black, theme)}else
         {ResourcesCompat.getColor(resources, R.color.black, theme)})
         marker!!.title = if(first)"Ha Noi" else "Ho Chi Minh"
         marker!!.snippet = if(first)"VietNam Capital" else "HoChiMinh city"

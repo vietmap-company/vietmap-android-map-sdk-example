@@ -9,7 +9,7 @@ class VietMapTiles {
     }
 
     private fun getApiKey(): String {
-        return (Resources.getSystem().getString(R.string.VietMapAPIKey))
+        return ("YOUR_API_KEY_HERE")
     }
 
     fun lightVector():String{

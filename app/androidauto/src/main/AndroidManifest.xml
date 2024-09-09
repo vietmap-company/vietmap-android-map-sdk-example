@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+        This AndroidManifest.xml will contain all of the elements that should be shared across the
+        Android Auto and Automotive OS versions of the app, such as the CarAppService <service> element
+    -->
+
+    <application>
+
+        <meta-data
+            android:name="androidx.car.app.minCarApiLevel"
+            android:value="1" />
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+        <service
+            android:name="vn.vietmap.androidauto.VietMapCarAppService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="androidx.car.app.category.POI" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="vn.vietmap.androidauto.VietMapCarAppScreen"
+            android:label="Preferences"
+            android:exported="true"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="vn.vietmap.androidauto.screens.VietMapCarAppScreen" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

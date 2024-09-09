@@ -42,7 +42,7 @@ android {
         viewBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.5"
     }
     packaging {
         resources {
@@ -66,9 +66,10 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1")
     implementation ("com.jakewharton:butterknife:10.2.3")
     implementation( "androidx.core:core-ktx:1.7.0")
-//    implementation( "com.github.vietmap-company:maps-sdk-android:2.4.")
-    implementation( "com.github.vietmap-company:maps-sdk-navigation-ui-android:2.1.0")
-    implementation( "com.github.vietmap-company:maps-sdk-navigation-android:2.1.0")
+    implementation( "com.github.vietmap-company:maps-sdk-android:3.1.0")
+    implementation (project(":app:androidauto"))
+//    implementation( "com.github.vietmap-company:maps-sdk-navigation-ui-android:2.1.0")
+//    implementation( "com.github.vietmap-company:maps-sdk-navigation-android:2.1.0")
     implementation( "com.github.vietmap-company:vietmap-services-core:1.0.0")
     implementation( "com.github.vietmap-company:vietmap-services-directions-models:1.0.1")
     implementation ("com.github.vietmap-company:vietmap-services-turf-android:1.0.2")
@@ -82,7 +83,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation(files("VietmapGLAndroidSDK-release.aar"))
+//    implementation(files("VietmapGLAndroidSDK-release.aar"))
+    implementation("androidx.core:core-ktx:1.13.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

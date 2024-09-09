@@ -19,8 +19,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.graphics.drawable.toBitmap
 import com.mapbox.geojson.Point
 import vn.vietmap.mapsdkdemo.services.LocationService
-import vn.vietmap.services.android.navigation.ui.v5.R
-import vn.vietmap.services.android.navigation.v5.location.engine.LocationEngineProvider
+//import vn.vietmap.services.android.navigation.ui.v5.R
+//import vn.vietmap.services.android.navigation.v5.location.engine.LocationEngineProvider
 import vn.vietmap.vietmapsdk.camera.CameraUpdateFactory
 import vn.vietmap.vietmapsdk.geometry.LatLng
 import vn.vietmap.vietmapsdk.location.LocationComponent
@@ -39,16 +39,16 @@ import java.lang.Exception
 @Composable
 fun VietMapGL(modifier: Modifier = Modifier, vmgl: VietMapGL? =null){
     val context = LocalContext.current
-    val marker = remember(context){
-        context.getDrawable(R.drawable.map_marker_dark)!!.toBitmap()
-    }
+//    val marker = remember(context){
+////        context.getDrawable(R.drawable.map_marker_dark)!!.toBitmap()
+//    }
     var locationEngine: LocationEngine? = null
     var locationComponent: LocationComponent? = null
     AndroidView(factory = {
         MapView(it).also { mapview->
             mapview.getMapAsync { vietmapGL ->
-                locationEngine =
-                    LocationEngineProvider.getBestLocationEngine(it)
+//                locationEngine =
+//                    LocationEngineProvider.getBestLocationEngine(it)
                 vietmapGL?.setStyle("https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE"){
                         style ->
                     locationComponent = vietmapGL.locationComponent

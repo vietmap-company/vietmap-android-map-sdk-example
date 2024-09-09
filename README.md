@@ -17,6 +17,8 @@
 [8. Add some necessary function](/README.md#add-some-necessary-function)
 
 [9. Request location permission](/README.md#add-below-code-to-mainactivity-class-to-request-location-permission)
+
+[10. Android auto implement](https://github.com/vietmap-company/vietmap-android-auto)
 ###  **I**. Add dependencies below to build.gradle module app
 
 ```gradle
@@ -382,3 +384,4 @@ Add navigate page button for the MainActivity xml file
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
+
