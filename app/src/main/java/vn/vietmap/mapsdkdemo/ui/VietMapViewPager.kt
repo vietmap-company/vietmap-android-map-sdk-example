@@ -147,7 +147,7 @@ class VietMapViewPager : AppCompatActivity() {
                         )
                         val fragment = SupportMapFragment.newInstance(options)
                         fragment.getMapAsync { vietmapGL ->
-                            vietmapGL.setStyle(VietMapTiles.instance.lightVector())
+                            vietmapGL.setStyle(VietMapTiles.instance.lightVector(context))
                         }
                         return fragment
                     }
@@ -164,7 +164,7 @@ class VietMapViewPager : AppCompatActivity() {
                         val fragment = SupportMapFragment.newInstance(options)
                         fragment.getMapAsync { vietMapGL ->
                             vietMapGL.setStyle(
-                                "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE"
+                                VietMapTiles.instance.lightRaster(context)
                             )
                         }
                         return fragment
@@ -182,7 +182,7 @@ class VietMapViewPager : AppCompatActivity() {
                         val fragment = SupportMapFragment.newInstance(options)
                         fragment.getMapAsync { vietMapGL ->
                             vietMapGL.setStyle(
-                                "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE"
+                                VietMapTiles.instance.lightVector(context)
                             )
                         }
                         return fragment

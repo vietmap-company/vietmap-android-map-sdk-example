@@ -1,6 +1,6 @@
 package vn.vietmap.mapsdkdemo.utils
 
-import android.content.res.Resources
+import android.content.Context
 import vn.vietmap.mapsdkdemo.R
 
 class VietMapTiles {
@@ -8,21 +8,26 @@ class VietMapTiles {
         val instance = VietMapTiles()
     }
 
-    private fun getApiKey(): String {
-        return ("YOUR_API_KEY_HERE")
+    private fun getApiKey(context: Context?): String? {
+        if (context == null) return null
+        return ApiKeyProvider.getApiKey(context)
     }
 
-    fun lightVector():String{
-        return "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE"
+    fun lightVector(context: Context? = null):String{
+        val key = getApiKey(context) ?: ""
+        return "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=$key"
     }
 
-    fun  lightRaster():String{
-        return "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE"
+    fun  lightRaster(context: Context? = null):String{
+        val key = getApiKey(context) ?: ""
+        return "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=$key"
     }
-    fun  google():String{
-        return "https://maps.vietmap.vn/api/maps/google/styles.json?apikey=YOUR_API_KEY_HERE"
+    fun  google(context: Context? = null):String{
+        val key = getApiKey(context) ?: ""
+        return "https://maps.vietmap.vn/api/maps/google/styles.json?apikey=$key"
     }
-    fun  googleSatellite():String{
-        return "https://maps.vietmap.vn/api/maps/google-satellite/styles.json?apikey=YOUR_API_KEY_HERE"
+    fun  googleSatellite(context: Context? = null):String{
+        val key = getApiKey(context) ?: ""
+        return "https://maps.vietmap.vn/api/maps/google-satellite/styles.json?apikey=$key"
     }
 }

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SearchRouteActivity">
+
+    <vn.vietmap.vietmapsdk.maps.MapView
+        android:id="@+id/vietmap_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Search Container with CardView for better visibility -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="12dp"
+        android:background="#F8F8F8"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- Search Input Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/search_input"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:hint="Search location..."
+                    android:textColor="#000000"
+                    android:textColorHint="#757575"
+                    android:textSize="16sp"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="8dp"
+                    android:background="#FFFFFF"
+                    android:layout_marginEnd="8dp"
+                    android:elevation="2dp" />
+
+                <Button
+                    android:id="@+id/search_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="Search"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#1976D2"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp" />
+
+            </LinearLayout>
+
+            <!-- Clear/Reset Button -->
+            <Button
+                android:id="@+id/clear_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Clear Route"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#F44336"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
+
+            <!-- Autocomplete Results List -->
+            <ListView
+                android:id="@+id/search_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="300dp"
+                android:background="#FFFFFF"
+                android:divider="#E0E0E0"
+                android:dividerHeight="1dp"
+                android:visibility="gone"
+                android:elevation="10dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Info Text at Bottom -->
+    <TextView
+        android:id="@+id/info_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:padding="12dp"
+        android:text="Select origin first, then destination"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="#88000000"
+        android:visibility="visible" />
+
+</RelativeLayout>

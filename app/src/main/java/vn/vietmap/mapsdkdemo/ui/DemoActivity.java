@@ -31,7 +31,10 @@ import vn.vietmap.vietmapsdk.geometry.LatLng;
 import vn.vietmap.vietmapsdk.location.LocationComponent;
 import vn.vietmap.vietmapsdk.location.LocationComponentActivationOptions;
 import vn.vietmap.vietmapsdk.location.engine.LocationEngine;
+import vn.vietmap.vietmapsdk.location.engine.LocationEngineCallback;
 import vn.vietmap.vietmapsdk.location.engine.LocationEngineDefault;
+import vn.vietmap.vietmapsdk.location.engine.LocationEngineRequest;
+import vn.vietmap.vietmapsdk.location.engine.LocationEngineResult;
 import vn.vietmap.vietmapsdk.location.modes.CameraMode;
 import vn.vietmap.vietmapsdk.location.modes.RenderMode;
 import vn.vietmap.vietmapsdk.maps.MapView;
@@ -84,7 +87,7 @@ public class DemoActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull VietMapGL vietMapGL) {
         this.vietMapGL = vietMapGL;
-        vietMapGL.setStyle(new Style.Builder().fromUri(VietMapTiles.Companion.getInstance().lightVector()), style -> {
+        vietMapGL.setStyle(new Style.Builder().fromUri(VietMapTiles.Companion.getInstance().lightVector(getApplicationContext())), style -> {
 
             this.style = style;
             initLocationEngine();
@@ -108,6 +111,14 @@ public class DemoActivity extends AppCompatActivity implements OnMapReadyCallbac
             vietMapGL.getUiSettings().setDeselectMarkersOnTap(false);
             addCustomInfoWindowAdapter(vietMapGL);
             marker = addInforwindowMarker(vietMapGL);
+        });
+
+        vietMapGL.setOnMarkerClickListener(new VietMapGL.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                marker.hideInfoWindow();
+                return true;
+            }
         });
     }
 
@@ -133,6 +144,7 @@ public class DemoActivity extends AppCompatActivity implements OnMapReadyCallbac
         return vietMapGL.addMarker(new MarkerOptions()
 
                 .position(HANOI)
+
 
                 .icon(new IconUtils().drawableToIcon(
                         this,
@@ -178,6 +190,7 @@ public class DemoActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationComponent.setLocationEngine(locationEngine);
         updateMyLocationTrackingMode();
         updateMyLocationRenderMode();
+
     }
 
     private void updateMyLocationTrackingMode() {
@@ -268,18 +281,20 @@ public class DemoActivity extends AppCompatActivity implements OnMapReadyCallbac
         addMarker(p0);
         // Distance from click to marker
         double distanceKm = marker.getPosition().distanceTo(p0) / 1000;
-
         // Get the info window
-        InfoWindow infoWindow = marker.getInfoWindow();
-
-        // Get the view from the info window
-        if (infoWindow != null && infoWindow.getView() != null) {
-            // Set the new text on the text view in the info window
-            TextView textView = (TextView) infoWindow.getView();
-            textView.setText(String.format(Locale.getDefault(), "%.2fkm", distanceKm));
-            // Update the info window position (as the text length changes)
-            textView.post(infoWindow::update);
-        }
+//        InfoWindow infoWindow = marker.getInfoWindow();
+//        if (infoWindow == null) {
+//            // If the info window is not already open, show it
+//            return true;
+//        }
+//        // Get the view from the info window
+//        if (infoWindow != null && infoWindow.getView() != null) {
+//            // Set the new text on the text view in the info window
+//            TextView textView = (TextView) infoWindow.getView();
+//            textView.setText(String.format(Locale.getDefault(), "%.2fkm", distanceKm));
+//            // Update the info window position (as the text length changes)
+//            textView.post(infoWindow::update);
+//        }
         return true;
     }
 

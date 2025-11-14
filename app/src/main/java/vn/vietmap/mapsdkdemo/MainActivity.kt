@@ -33,6 +33,7 @@ import vn.vietmap.mapsdkdemo.ui.PolygonActivity
 import vn.vietmap.mapsdkdemo.ui.PolylineActivity
 import vn.vietmap.mapsdkdemo.ui.PrintMapActivity
 import vn.vietmap.mapsdkdemo.ui.RestrictCameraToBoundsActivity
+import vn.vietmap.mapsdkdemo.ui.SearchRouteActivity
 import vn.vietmap.mapsdkdemo.ui.ShowUserLocationActivity
 import vn.vietmap.mapsdkdemo.ui.SymbolLayerActivity
 import vn.vietmap.mapsdkdemo.ui.VietMapGLSurfaceRecyclerView
@@ -100,9 +101,12 @@ class MainActivity : ComponentActivity() {
                     ) {
                     Text(text = "Show map")
                     Button(onClick = {
-                        Intent(applicationContext, VietmapScreen::class.java).also {
-                            startActivity(it)
-                        }
+                        startActivity(Intent(this@MainActivity, SearchRouteActivity::class.java))
+                    }) {
+                        Text(text = "Search/Routing")
+                    }
+                    Button(onClick = {
+                        startActivity(Intent(this@MainActivity, VietmapScreen::class.java))
                     }) {
                         Text(text = "Simple map")
                     }

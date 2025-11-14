@@ -120,11 +120,11 @@ class VietmapScreen : AppCompatActivity(), VietMapGL.OnMapClickListener {
             }
             changeTileButton.setOnClickListener {
                 if (isVector) {
-                    vietMapGL?.setStyle("https://maps.vietmap.vn/api/maps/google/styles.json?apikey=YOUR_API_KEY_HERE")
+                    vietMapGL?.setStyle(VietMapTiles.instance.google(this))
                     isVector = false
                 } else {
                     isVector = true
-                    vietMapGL?.setStyle("https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE")
+                    vietMapGL?.setStyle(VietMapTiles.instance.lightVector(this))
 
                 }
             }
